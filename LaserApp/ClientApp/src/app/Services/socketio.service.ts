@@ -1,15 +1,17 @@
 import { Inject, Injectable, Injector } from '@angular/core';
-import { SocketOne } from '../app.module';
+import { io } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketioService {
 
-  protected socket: SocketOne;
+  socket: any;
+  url: any = "ws://192.168.254.159:8000"
 
-  constructor(injector: Injector) {
-    this.socket = injector.get(SocketOne);
+  constructor() {
+    this.socket = io(this.url);
+    this.setupSocketConnection();
   }
 
   setupSocketConnection() {

@@ -1,18 +1,26 @@
 import { Inject, Injectable, Injector } from '@angular/core';
-import { SocketTwo } from '../app.module';
+import { io } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
 })
 
-
-
 export class GpioSocketService {
 
-  protected socket: SocketTwo;
+  socket: any;
+  url: any = "ws://192.168.254.159:8082"
 
-  constructor(injector: Injector) {
-    this.socket = injector.get(SocketTwo);
+  constructor() {
+    this.socket = io(this.url, {
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            'Authorization': 'Negotiate'
+          }
+        }
+      }
+    });
+    this.setupSocketConnection();
   }
 
   setupSocketConnection() {
