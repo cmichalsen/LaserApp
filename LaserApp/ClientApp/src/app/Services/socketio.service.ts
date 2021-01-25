@@ -1,18 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { environment } from '../../environments/environment';
+import { Inject, Injectable, Injector } from '@angular/core';
+import { SocketOne } from '../app.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketioService {
 
-  constructor(private socket: Socket) { }
+  protected socket: SocketOne;
+
+  constructor(injector: Injector) {
+    this.socket = injector.get(SocketOne);
+  }
 
   setupSocketConnection() {
-    //this.socket = io(environment.SOCKET_ENDPOINT);
-
-    console.log('test this');
+    console.log('setup grbl socket');
 
     this.socket.emit('getServerConfig');
     console.log('Connecting to Server');
@@ -25,8 +26,6 @@ export class SocketioService {
   }
 
   down(mm: string, fr: string) {
-    //this.socket.emit('runCommand', 'G91 Y-' + mm + ' F' + fr);
-
     this.socket.emit('runCommand', 'G91 Y-1 F1800');
 
     console.log('send gcode command' + 'G91 Y-' + mm + ' F' + fr);

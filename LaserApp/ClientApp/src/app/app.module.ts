@@ -1,18 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { SocketioService } from './Services/socketio.service';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { SocketIoModule, Socket } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: "ws://192.168.254.199:8000", options: {} };
+@Injectable()
+export class SocketOne extends Socket {
+
+  constructor() {
+    super({ url: 'ws://192.168.254.159:8000', options: {} });
+  }
+
+}
+
+@Injectable()
+export class SocketTwo extends Socket {
+
+  constructor() {
+    super({ url: 'ws://192.168.254.159:8082', options: {} });
+  }
+
+}
 
 @NgModule({
   declarations: [
@@ -26,14 +40,12 @@ const config: SocketIoConfig = { url: "ws://192.168.254.199:8000", options: {} }
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    SocketIoModule.forRoot(config),
+    SocketIoModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],
-  providers: [SocketioService],
+  providers: [ SocketOne, SocketTwo ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

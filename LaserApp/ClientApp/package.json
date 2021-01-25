@@ -29,7 +29,6 @@
     "ng": "0.0.0",
     "ngx-socket-io": "^3.2.0",
     "oidc-client": "^1.9.1",
-    "onoff": "^6.0.1",
     "popper.js": "^1.16.0",
     "rxjs": "^6.5.3",
     "socket.io": "^3.1.0",

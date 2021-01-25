@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SocketioService } from './Services/socketio.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +7,7 @@ import { SocketioService } from './Services/socketio.service';
 export class AppComponent {
   title = 'app';
 
-  constructor(private socketService: SocketioService) { }
+  constructor() { }
   ngOnInit() {
-    this.socketService.setupSocketConnection();
   }
 }
