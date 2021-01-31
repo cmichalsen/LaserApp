@@ -26,34 +26,46 @@ constructor() {
   }
 
 
-  toggleCoolant(state: number, msg: string) {
+  toggleCoolant(state: boolean) {
     this.socket.emit('coolant', state);
+  }
 
-    console.log('Switching coolant pump ' + msg);
+  toggleAir(state: boolean) {
+    this.socket.emit('air', state);
+  }
+
+  toggleLaser(state: boolean) {
+    this.socket.emit('laser', state);
   }
 
   async whiteOnRGB() {
     this.socket.emit('lights_off');
-    await delay(1000);
+    await delay(100);
     this.socket.emit('white_on');
   }
 
   async redOnRGB() {
     this.socket.emit('lights_off');
-    await delay(1000);
+    await delay(100);
     this.socket.emit('red_on');
   }
 
   async greenOnRGB() {
     this.socket.emit('lights_off');
-    await delay(1000);
+    await delay(100);
     this.socket.emit('green_on');
   }
 
   async blueOnRGB() {
     this.socket.emit('lights_off');
-    await delay(1000);
+    await delay(100);
     this.socket.emit('blue_on');
+  }
+
+  async purpleOnRGB() {
+    this.socket.emit('lights_off');
+    await delay(100);
+    this.socket.emit('purple_on');
   }
 
   lightsOffRGB() {

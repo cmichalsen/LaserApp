@@ -15,6 +15,9 @@ import { IgxRadialGaugeModule } from 'igniteui-angular-gauges';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 const config: SocketIoConfig = {
@@ -35,6 +38,9 @@ const config: SocketIoConfig = {
     IgxRadialGaugeModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatButtonToggleModule,
     FormsModule,
     SocketIoModule.forRoot(config),
     RouterModule.forRoot([

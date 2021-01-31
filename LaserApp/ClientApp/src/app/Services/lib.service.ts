@@ -13,13 +13,19 @@ export class LibService {
   constructor() { }
 
 
-  public convert_volts_temp(volts: number, Vin: number) {
+  public convert_volts_temp(volts: number, Vin: number, prev_temp: number) {
     var RT = this.getRT(Vin, volts);
 
     var Cel = this.getCelTemp(RT);
 
-    //return Math.round((Cel * (9 / 5)) + 32);
-    return ((Cel * (9 / 5)) + 32);
+    var Far = ((Cel * (9 / 5)) + 32);
+
+    // hack for now to handle garbage readings
+    if (Far >= prev_temp + 2 || Far <= prev_temp - 2) {
+      Far = prev_temp;
+    }
+
+    return Far;
   }
 
   private getRT(Vin: number, volts: number) {

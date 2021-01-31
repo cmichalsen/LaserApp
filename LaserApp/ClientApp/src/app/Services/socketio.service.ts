@@ -20,10 +20,32 @@ export class SocketioService {
     console.log('send hold command');
   }
 
-  down(mm: string, fr: string) {
-    this.socket.emit('runCommand', 'G91 Y-1 F1800');
+  down(mm: number, fr: string) {
+    let cmd = 'G91 Y' + mm + ' F' + fr;
+    this.socket.emit('runCommand', cmd);
 
-    console.log('send gcode command' + 'G91 Y-' + mm + ' F' + fr);
+    console.log('send gcode command: ' + cmd);
+  }
+
+  up(mm: number, fr: string) {
+    let cmd = 'G91 Y' + mm + ' F' + fr;
+    this.socket.emit('runCommand', cmd);
+
+    console.log('send gcode command: ' + cmd);
+  }
+
+  left(mm: number, fr: string) {
+    let cmd = 'G91 X' + mm + ' F' + fr;
+    this.socket.emit('runCommand', cmd);
+
+    console.log('send gcode command: ' + cmd);
+  }
+
+  right(mm: number, fr: string) {
+    let cmd = 'G91 X' + mm + ' F' + fr;
+    this.socket.emit('runCommand', cmd);
+
+    console.log('send gcode command: ' + cmd);
   }
 
 }

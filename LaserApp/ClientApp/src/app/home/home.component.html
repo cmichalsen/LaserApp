@@ -1,7 +1,7 @@
 
 
   <!-- ROW 1: Guage Cluster -->
-  <div class="row" style="top:0%;" onload="">
+  <div class="row" style="top:0%;">
     <div class="col">
       <app-guage reading="{{COOLANT_IN_ROUNDED}}" label="COOLANT IN"></app-guage>
     </div>
@@ -20,18 +20,32 @@
 
       <!-- COL 1: JOG -->
       <div class="col">
-        <!--<button (click)="downOne()">Jog Down 1mm</button>-->
-        <a href="#" class="myButton" (click)="coolantOff()">UP</a>
+        <button mat-fab class="jog-btn" color="primary" (click)="upJog()">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
       </div>
 
       <!-- COL 2: POWER -->
       <div class="col" style="margin-top:4%">
 
-        <a href="#" class="myRedButton" (click)="coolantOn()">AIR</a>
+        <!--<a href="#" class="myRedButton" (click)="coolantOn()">AIR</a>-->
+        <button class="pwr-btn" mat-raised-button color="warn" (click)="toggleAir()">
+          <mat-icon>air</mat-icon>
+          AIR
+        </button>
 
-        <a href="#" class="myRedButton" (click)="coolantOn()">COOLANT</a>
+        <!--<a href="#" class="myRedButton" (click)="coolantOn()">COOLANT</a>-->
+        <button class="pwr-btn" mat-raised-button color="warn" (click)="toggleCoolant()">
+          <mat-icon>ac_unit</mat-icon>
+          COOLANT
+        </button>
 
-        <a href="#" class="myRedButton" (click)="coolantOn()">LASER</a>
+        <!--<a href="#" class="myRedButton" (click)="coolantOn()">LASER</a>-->
+        <button class="pwr-btn" mat-raised-button color="warn" (click)="toggleLaser()">
+          <mat-icon>local_fire_department</mat-icon>
+          LASER
+        </button>
+
 
       </div>
 
@@ -42,12 +56,27 @@
 
       <!-- COL 1: JOG -->
       <div class="col">
-        <a href="#" class="myButton" (click)="coolantOff()">LT</a>
 
-        <a href="#" class="myButton" (click)="coolantOff()">10mm</a>
+        <section>
+          <!--<a href="#" class="myButton" (click)="coolantOff()">LT</a>-->
+          <button mat-fab class="jog-btn jog-spacing" color="primary" (click)="leftJog()">
+            <mat-icon class="jog-spacing">arrow_backward</mat-icon>
+          </button>
 
-        <a href="#" class="myButton" (click)="coolantOff()">RT</a>
+          <mat-form-field appearance="fill" class="select-custom">
+            <mat-label>Move (mm)</mat-label>
+            <mat-select matNativeControl (selectionChange)="cmdTravel($event.value)">
+              <mat-option value="1">1</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="100">100</mat-option>
+            </mat-select>
+          </mat-form-field>
 
+          <!--<a href="#" class="myButton" (click)="coolantOff()">RT</a>-->
+          <button mat-fab class="jog-btn" color="primary" (click)="rightJog()">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </section>
       </div>
 
 
@@ -58,6 +87,7 @@
           <mat-select matNativeControl (selectionChange)="cmd_the_lights($event.value)">
             <mat-option value="RED" style="color:red">RED</mat-option>
             <mat-option value="BLUE" style="color:blue">BLUE</mat-option>
+            <mat-option value="PURPLE" style="color:purple">PURPLE</mat-option>
             <mat-option value="GREEN" style="color:lawngreen">GREEN</mat-option>
             <mat-option value="WHITE" style="color:black">WHITE</mat-option>
             <mat-option value="OFF">OFF</mat-option>
@@ -72,7 +102,12 @@
       <!-- COL 1: JOG -->
       <div class="col">
 
-        <a href="#" class="myButton" (click)="coolantOff()">DN</a>
+        <!--<a href="#" class="myButton" (click)="coolantOff()">DN</a>-->
+        <button mat-fab class="jog-btn"
+                color="primary"
+                (click)="downJog()">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
 
       </div>
 

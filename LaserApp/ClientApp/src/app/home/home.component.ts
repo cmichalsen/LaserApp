@@ -12,7 +12,15 @@ import { LibService } from '../Services/lib.service';
 })
 export class HomeComponent implements OnInit {
 
-  selected:string;
+  selected: string;
+
+  // JOG PARAMS
+  TRAVEL_DIST: number = 0;
+
+  // POWER STATES
+  COOLANT_ON: boolean = false;
+  AIR_ON: boolean = false;
+  LASER_ON: boolean = false;
 
   // Channels
   // 0 = 3.3 rail
@@ -32,68 +40,72 @@ export class HomeComponent implements OnInit {
       this.gpio_socket.VoltagesMsg().subscribe(msg => {
         this.voltages = msg;
 
-        this.COOLANT_IN = this.lib.convert_volts_temp(this.voltages[1], this.voltages[0]);
+        this.COOLANT_IN = this.lib.convert_volts_temp(this.voltages[1], this.voltages[0], this.COOLANT_IN);
         this.COOLANT_IN_ROUNDED = Math.round(this.COOLANT_IN);
         this.COOLANT_FLOW = this.voltages[3];
       });
     }
 
-  downOne() {
-    this.socket.down('1', '1800');
+  downJog() {
+    this.socket.down(this.TRAVEL_DIST *-1, '1800');
   }
 
-  coolantOff() {
-    this.gpio_socket.toggleCoolant(0, 'off');
+  upJog() {
+    this.socket.up(this.TRAVEL_DIST, '1800');
   }
 
-  coolantOn() {
-    this.gpio_socket.toggleCoolant(1, 'on');
-    this.greenOn();
+  leftJog() {
+    this.socket.left(this.TRAVEL_DIST * -1, '1800');
   }
 
-  cmd_the_lights(test: string) {
-    console.log(test);
-    this.redOn();
+  rightJog() {
+    this.socket.right(this.TRAVEL_DIST, '1800');
+  }
 
-    switch (test) {
+  toggleCoolant() {
+    this.COOLANT_ON = !this.COOLANT_ON;
+    this.gpio_socket.toggleCoolant(this.COOLANT_ON);
+    console.log("toggle coolant");
+  }
+
+  toggleAir() {
+    this.AIR_ON = !this.AIR_ON;
+    this.gpio_socket.toggleAir(this.AIR_ON);
+    console.log("toggle air");
+  }
+
+  toggleLaser() {
+    this.LASER_ON = !this.LASER_ON;
+    this.gpio_socket.toggleLaser(this.LASER_ON);
+    console.log("toggle laser");
+  }
+
+  cmd_the_lights(color: string) {
+    switch (color) {
       case "RED":
-        this.redOn();
+        this.gpio_socket.redOnRGB();
         break;
       case "GREEN":
-        this.greenOn();
+        this.gpio_socket.greenOnRGB();
         break;
       case "BLUE":
-        this.blueOn();
+        this.gpio_socket.blueOnRGB();
         break;
       case "WHITE":
-        this.whiteOn();
+        this.gpio_socket.whiteOnRGB();
         break;
       case "OFF":
-        this.lightsOff();
+        this.gpio_socket.lightsOffRGB();
         break;
-
+      case "PURPLE":
+        this.gpio_socket.purpleOnRGB();
+        break;
     }
   }
 
-  redOn() {
-    this.gpio_socket.redOnRGB();
-  }
-
-  greenOn() {
-    this.gpio_socket.greenOnRGB();
-  }
-
-  blueOn() {
-    this.gpio_socket.blueOnRGB();
-  }
-
-  whiteOn() {
-    this.gpio_socket.whiteOnRGB();
-  }
-
-  lightsOff() {
-    this.gpio_socket.lightsOffRGB();
-  }
+  cmdTravel(dist: number) {
+    this.TRAVEL_DIST = dist;
+  } 
 
   private startReadingSensors() {
     this.gpio_socket.getCoolantTemps();
