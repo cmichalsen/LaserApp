@@ -1,5 +1,84 @@
-<button (click)="downOne()">Jog Down 1mm</button>
 
-<button (click)="coolantOff()">Coolant Off</button>
 
-<button (click)="coolantOn()">Coolant On</button>
+  <!-- ROW 1: Guage Cluster -->
+  <div class="row" style="top:0%;" onload="">
+    <div class="col">
+      <app-guage reading="{{COOLANT_IN_ROUNDED}}" label="COOLANT IN"></app-guage>
+    </div>
+    <div class="col">
+      <app-guage reading="{{COOLANT_IN_ROUNDED}}" label="COOLANT OUT"></app-guage>
+    </div>
+    <div class="col">
+      <app-guage reading="{{COOLANT_FLOW}}" label="COOLANT FLOW"></app-guage>
+    </div>
+  </div>
+
+  <div style="color:white;">
+
+    <!-- ROW 2 -->
+    <div class="row" style="margin-top:3%; position:relative">
+
+      <!-- COL 1: JOG -->
+      <div class="col">
+        <!--<button (click)="downOne()">Jog Down 1mm</button>-->
+        <a href="#" class="myButton" (click)="coolantOff()">UP</a>
+      </div>
+
+      <!-- COL 2: POWER -->
+      <div class="col" style="margin-top:4%">
+
+        <a href="#" class="myRedButton" (click)="coolantOn()">AIR</a>
+
+        <a href="#" class="myRedButton" (click)="coolantOn()">COOLANT</a>
+
+        <a href="#" class="myRedButton" (click)="coolantOn()">LASER</a>
+
+      </div>
+
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="row" style="margin-top: 5%; position: relative;">
+
+      <!-- COL 1: JOG -->
+      <div class="col">
+        <a href="#" class="myButton" (click)="coolantOff()">LT</a>
+
+        <a href="#" class="myButton" (click)="coolantOff()">10mm</a>
+
+        <a href="#" class="myButton" (click)="coolantOff()">RT</a>
+
+      </div>
+
+
+      <!-- COL 2: POWER -->
+      <div class="col" style="margin-top:3%;">
+        <mat-form-field appearance="fill" class="select-custom">
+          <mat-label>Select Color</mat-label>
+          <mat-select matNativeControl (selectionChange)="cmd_the_lights($event.value)">
+            <mat-option value="RED" style="color:red">RED</mat-option>
+            <mat-option value="BLUE" style="color:blue">BLUE</mat-option>
+            <mat-option value="GREEN" style="color:lawngreen">GREEN</mat-option>
+            <mat-option value="WHITE" style="color:black">WHITE</mat-option>
+            <mat-option value="OFF">OFF</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  </div>
+
+    <!-- ROW 4 -->
+    <div class="row" style="margin-top: 4%; position: relative">
+
+      <!-- COL 1: JOG -->
+      <div class="col">
+
+        <a href="#" class="myButton" (click)="coolantOff()">DN</a>
+
+      </div>
+
+      <!-- COL 2: COLOR -->
+      <div class="col">
+
+      </div>
+    </div>
+  </div>

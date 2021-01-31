@@ -1,21 +1,14 @@
 import { Inject, Injectable, Injector } from '@angular/core';
-import { io } from 'socket.io-client'
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketioService {
 
-  socket: any;
-  url: any = "ws://192.168.254.159:8000"
-
-  constructor() {
-    this.socket = io(this.url);
-    this.setupSocketConnection();
-  }
+  constructor(private socket: Socket) { }
 
   setupSocketConnection() {
-    console.log('setup grbl socket');
 
     this.socket.emit('getServerConfig');
     console.log('Connecting to Server');
