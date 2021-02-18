@@ -1,119 +1,28 @@
+<!--<app-guage reading="{{COOLANT_IN_ROUNDED}}" label="COOLANT IN"></app-guage>-->
+
+<table width="100%" align="center">
+
+  <!-- Guage Cluster Row -->
+  <tr>
+    <th>
+      <app-guage reading={{COOLANT_IN_ROUNDED}} label="COOLANT IN"></app-guage>
+      </th>
+
+    <th>
+      <app-guage reading={{COOLANT_OUT_ROUNDED}} label="COOLANT OUT"></app-guage>
+      </th>
+
+    <th>
+      <app-guage reading="{{COOLANT_FLOW_ROUNDED}}" label="COOLANT FLOW"></app-guage>
+    </th>
+  </tr>
+</table>
+
+<table width="100%">
+  <tr>
+    <app-jog-controls></app-jog-controls>
+  </tr>
+</table>
+  
 
 
-  <!-- ROW 1: Guage Cluster -->
-  <div class="row" style="top:0%;">
-    <div class="col">
-      <app-guage reading="{{COOLANT_IN_ROUNDED}}" label="COOLANT IN"></app-guage>
-    </div>
-    <div class="col">
-      <app-guage reading="{{COOLANT_IN_ROUNDED}}" label="COOLANT OUT"></app-guage>
-    </div>
-    <div class="col">
-      <app-guage reading="{{COOLANT_FLOW}}" label="COOLANT FLOW"></app-guage>
-    </div>
-  </div>
-
-  <div style="color:white;">
-
-    <!-- ROW 2 -->
-    <div class="row" style="margin-top:3%; position:relative">
-
-      <!-- COL 1: JOG -->
-      <div class="col">
-        <button mat-fab class="jog-btn" color="primary" (click)="upJog()">
-          <mat-icon>arrow_upward</mat-icon>
-        </button>
-      </div>
-
-      <!-- COL 2: POWER -->
-      <div class="col" style="margin-top:4%">
-
-        <!--<a href="#" class="myRedButton" (click)="coolantOn()">AIR</a>-->
-        <button class="pwr-btn" mat-raised-button color="warn" (click)="toggleAir()">
-          <mat-icon>air</mat-icon>
-          AIR
-        </button>
-
-        <!--<a href="#" class="myRedButton" (click)="coolantOn()">COOLANT</a>-->
-        <button class="pwr-btn" mat-raised-button color="warn" (click)="toggleCoolant()">
-          <mat-icon>ac_unit</mat-icon>
-          COOLANT
-        </button>
-
-        <!--<a href="#" class="myRedButton" (click)="coolantOn()">LASER</a>-->
-        <button class="pwr-btn" mat-raised-button color="warn" (click)="toggleLaser()">
-          <mat-icon>local_fire_department</mat-icon>
-          LASER
-        </button>
-
-
-      </div>
-
-    </div>
-
-    <!-- ROW 3 -->
-    <div class="row" style="margin-top: 5%; position: relative;">
-
-      <!-- COL 1: JOG -->
-      <div class="col">
-
-        <section>
-          <!--<a href="#" class="myButton" (click)="coolantOff()">LT</a>-->
-          <button mat-fab class="jog-btn jog-spacing" color="primary" (click)="leftJog()">
-            <mat-icon class="jog-spacing">arrow_backward</mat-icon>
-          </button>
-
-          <mat-form-field appearance="fill" class="select-custom">
-            <mat-label>Move (mm)</mat-label>
-            <mat-select matNativeControl (selectionChange)="cmdTravel($event.value)">
-              <mat-option value="1">1</mat-option>
-              <mat-option value="10">10</mat-option>
-              <mat-option value="100">100</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <!--<a href="#" class="myButton" (click)="coolantOff()">RT</a>-->
-          <button mat-fab class="jog-btn" color="primary" (click)="rightJog()">
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-        </section>
-      </div>
-
-
-      <!-- COL 2: POWER -->
-      <div class="col" style="margin-top:3%;">
-        <mat-form-field appearance="fill" class="select-custom">
-          <mat-label>Select Color</mat-label>
-          <mat-select matNativeControl (selectionChange)="cmd_the_lights($event.value)">
-            <mat-option value="RED" style="color:red">RED</mat-option>
-            <mat-option value="BLUE" style="color:blue">BLUE</mat-option>
-            <mat-option value="PURPLE" style="color:purple">PURPLE</mat-option>
-            <mat-option value="GREEN" style="color:lawngreen">GREEN</mat-option>
-            <mat-option value="WHITE" style="color:black">WHITE</mat-option>
-            <mat-option value="OFF">OFF</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-  </div>
-
-    <!-- ROW 4 -->
-    <div class="row" style="margin-top: 4%; position: relative">
-
-      <!-- COL 1: JOG -->
-      <div class="col">
-
-        <!--<a href="#" class="myButton" (click)="coolantOff()">DN</a>-->
-        <button mat-fab class="jog-btn"
-                color="primary"
-                (click)="downJog()">
-          <mat-icon>arrow_downward</mat-icon>
-        </button>
-
-      </div>
-
-      <!-- COL 2: COLOR -->
-      <div class="col">
-
-      </div>
-    </div>
-  </div>

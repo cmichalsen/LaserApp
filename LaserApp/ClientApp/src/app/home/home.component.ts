@@ -14,9 +14,6 @@ export class HomeComponent implements OnInit {
 
   selected: string;
 
-  // JOG PARAMS
-  TRAVEL_DIST: number = 0;
-
   // POWER STATES
   COOLANT_ON: boolean = false;
   AIR_ON: boolean = false;
@@ -31,10 +28,14 @@ export class HomeComponent implements OnInit {
 
   COOLANT_IN: number;
   COOLANT_IN_ROUNDED: number;
+  COOLANT_OUT: number;
+  COOLANT_OUT_ROUNDED: number;
   COOLANT_FLOW: number;
+  COOLANT_FLOW_ROUNDED: number;
 
   constructor(private socket: SocketioService, private gpio_socket: GpioSocketService, private lib: LibService) {
     this.startReadingSensors();
+    this.startReadingCoolantFlow();
   }
     ngOnInit(): void {
       this.gpio_socket.VoltagesMsg().subscribe(msg => {
@@ -42,25 +43,18 @@ export class HomeComponent implements OnInit {
 
         this.COOLANT_IN = this.lib.convert_volts_temp(this.voltages[1], this.voltages[0], this.COOLANT_IN);
         this.COOLANT_IN_ROUNDED = Math.round(this.COOLANT_IN);
-        this.COOLANT_FLOW = this.voltages[3];
+
+        this.COOLANT_OUT = this.lib.convert_volts_temp(this.voltages[2], this.voltages[0], this.COOLANT_OUT);
+        this.COOLANT_OUT_ROUNDED = Math.round(this.COOLANT_OUT);
       });
+
+      this.gpio_socket.CoolantFlowMsg().subscribe(msg => {
+        console.log('coolant flow: ', msg);
+        this.COOLANT_FLOW = msg;
+        this.COOLANT_FLOW_ROUNDED = Math.round(this.COOLANT_FLOW);
+        this.gpio_socket.getCoolantFlow();
+      })
     }
-
-  downJog() {
-    this.socket.down(this.TRAVEL_DIST *-1, '1800');
-  }
-
-  upJog() {
-    this.socket.up(this.TRAVEL_DIST, '1800');
-  }
-
-  leftJog() {
-    this.socket.left(this.TRAVEL_DIST * -1, '1800');
-  }
-
-  rightJog() {
-    this.socket.right(this.TRAVEL_DIST, '1800');
-  }
 
   toggleCoolant() {
     this.COOLANT_ON = !this.COOLANT_ON;
@@ -103,12 +97,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  cmdTravel(dist: number) {
-    this.TRAVEL_DIST = dist;
-  } 
-
   private startReadingSensors() {
     this.gpio_socket.getCoolantTemps();
+  }
+
+  private startReadingCoolantFlow() {
+    this.gpio_socket.getCoolantFlow();
   }
 
 }

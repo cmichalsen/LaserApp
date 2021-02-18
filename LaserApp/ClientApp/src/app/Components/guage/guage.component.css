@@ -1,0 +1,24 @@
+
+.readingLabel {
+  position:relative;
+  top: 75px;
+  left: 0%;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  color: black;
+}
+
+.readingNumber {
+  position: relative;
+  top: 80px;
+  left: 0%;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+  font-size: 23px;
+  color: black;
+  font-style:oblique;
+  font-weight:800;
+}

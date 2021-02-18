@@ -1,0 +1,52 @@
+<!-- Jog Controls -->
+<table width="100%" align="center">
+
+  <!-- First Row -->
+  <tr>
+    <td colspan="3">
+      <button mat-fab class="jog-btn" color="primary" (click)="upJog()">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+    </td>
+  </tr>
+
+  <!-- Second Row -->
+  <tr>
+    <td colspan="1">
+
+      <!-- Jog Left -->
+      <button mat-fab class="jog-btn jog-spacing" color="primary" (click)="leftJog()">
+        <mat-icon class="jog-spacing">arrow_backward</mat-icon>
+      </button>
+    </td>
+
+    <!-- Jog Interval -->
+    <td colspan="1" valign="middle">
+      <mat-form-field appearance="fill" class="select-mm">
+        <mat-label>Move (mm)</mat-label>
+        <mat-select matNativeControl (selectionChange)="cmdTravel($event.value)">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="10">10</mat-option>
+          <mat-option value="100">100</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+
+    <!-- Jog Right -->
+    <td colspan="1">
+      <button mat-fab class="jog-btn" color="primary" (click)="rightJog()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </td>
+  </tr>
+
+  <!-- First Row -->
+  <tr>
+    <td colspan="3">
+      <button mat-fab class="jog-btn" color="primary" (click)="downJog()">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </td>
+  </tr>
+
+</table>

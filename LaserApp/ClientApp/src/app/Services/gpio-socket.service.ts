@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
 export class GpioSocketService {
 
   url: any = "ws://192.168.254.159:8082"
+  //TODO: locate some where higher up
+  //url: any = "ws://127.0.0.1:8082"
+
   private socket: any;
 
 constructor() {
@@ -79,10 +82,26 @@ constructor() {
     }
   }
 
+  getCoolantFlow() {
+    //while (true) {
+    this.socket.emit('coolant_flow');
+    console.log('testingthisnow');
+      ///await delay(2000);
+    //}
+  }
+
   // HANDLER
   VoltagesMsg() {
     return Observable.create(observer => {
       this.socket.on('adc_voltages', msg => {
+        observer.next(msg);
+      });
+    });
+  }
+
+  CoolantFlowMsg() {
+    return Observable.create(observer => {
+      this.socket.on('gph', msg => {
         observer.next(msg);
       });
     });

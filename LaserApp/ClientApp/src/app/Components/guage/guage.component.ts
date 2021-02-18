@@ -21,7 +21,7 @@ export class GuageComponent implements AfterViewInit {
 
   @Input() set reading(value: number) {
     this._reading = value;
-    this.AnimateToGauge3();
+    this.AnimateToGauge();
   }
   get reding(): number {
     return this._reading;
@@ -31,10 +31,10 @@ export class GuageComponent implements AfterViewInit {
 
     // enabling animation duration (in milliseconds)
     this.radialGauge.transitionDuration = 500;
-    this.AnimateToGauge3();
+    this.AnimateToGauge();
   }
 
-  public AnimateToGauge3(): void {
+  public AnimateToGauge(): void {
 
     this.radialGauge.height = "200px";
     this.radialGauge.width = "100%";
